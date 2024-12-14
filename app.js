@@ -2,16 +2,17 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import express from "express";
+import path from "path";
 const app = express();
 
-import dbConnection from "./db/db.connect.js";
+import dbConnection from "./src/db/db.connect.js";
 
 // middlewares
-import isAdminMiddleware from "./middlewares/isAdmin.middleware.js";
-import isUserMiddleware from "./middlewares/isUser.middleware.js";
+import isAdminMiddleware from "./src/middlewares/isAdmin.middleware.js";
+import isUserMiddleware from "./src/middlewares/isUser.middleware.js";
 
 // controllers
-import authContoller from "./controllers/auth.controller.js";
+import authContoller from "./src/controllers/auth.controller.js";
 
 dbConnection();
 
@@ -19,6 +20,7 @@ dbConnection();
 import cookieParser from "cookie-parser";
 
 app.set("view engine", "ejs");
+app.set("views", path.join('./src/views'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
